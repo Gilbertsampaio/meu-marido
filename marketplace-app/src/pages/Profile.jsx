@@ -1,4 +1,4 @@
-﻿import React, { useContext, useState, useEffect } from 'react';
+﻿import React, { useContext, useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../App';
 import './Profile.css';
@@ -7,12 +7,32 @@ const Profile = () => {
   const { user, logout } = useContext(AuthContext);
   const navigate = useNavigate();
   const [showLogoutModal, setShowLogoutModal] = useState(false);
+  const fileInputRef = useRef(null);
 
   useEffect(() => {
     if (!user) {
       navigate('/');
     }
   }, [user, navigate]);
+
+  const handlePhotoChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        const updatedUser = { ...user, photo: reader.result };
+        // Atualiza o contexto global
+        localStorage.setItem('user', JSON.stringify(updatedUser));
+        // Força re-render atualizando o estado do contexto
+        window.location.reload();
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleEditPhotoClick = () => {
+    fileInputRef.current.click();
+  };
 
   const handleLogoutClick = () => {
     setShowLogoutModal(true);
@@ -52,7 +72,22 @@ const Profile = () => {
 
       <div className="profile-info">
         <div className="info-card">
-          <img className="initials" src={user?.photo} alt={user?.name} />
+          <div className="photo-container">
+            <img 
+              className="initials clickable" 
+              src={user?.photo} 
+              alt={user?.name} 
+              onClick={handleEditPhotoClick}
+              title="Clique para alterar a foto"
+            />
+          </div>
+          <input
+            type="file"
+            ref={fileInputRef}
+            onChange={handlePhotoChange}
+            accept="image/*"
+            style={{ display: 'none' }}
+          />
           <h2>{user?.name}</h2>
           <p className="user-email">{user?.email}</p>
           <p className="user-type">Tipo: <strong>{user?.type === 'cliente' ? 'Cliente' : 'Profissional'}</strong></p>

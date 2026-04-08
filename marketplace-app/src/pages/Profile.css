@@ -34,7 +34,7 @@
 
 .profile .hero p {
     max-width: 620px;
-    margin: 1.5rem auto 0;
+    margin: 1rem auto 0;
     color: #cbd5e1;
     font-size: 1.05rem;
     line-height: 1.8;
@@ -45,7 +45,7 @@
     justify-content: center;
     gap: 1rem;
     flex-wrap: wrap;
-    margin-top: 2rem;
+    margin-top: 1rem;
 }
 
 .profile .primary-btn,
@@ -83,7 +83,7 @@
 .profile-info {
     display: flex;
     justify-content: center;
-    margin-bottom: 2rem;
+    /* margin-bottom: 2rem; */
     padding: 0;
 }
 
@@ -104,8 +104,20 @@
     width: 100px;
     height: 100px;
     border-radius: 50%;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
     /* border: 3px solid rgba(34, 197, 94, 0.4); */
+    object-position: center;
+    object-fit: cover;
+}
+
+.info-card img.clickable {
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.info-card img.clickable:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 25px rgba(34, 197, 94, 0.3);
 }
 
 .info-card h2 {
@@ -217,8 +229,8 @@
     }
 
     .profile .hero {
-        padding-top: 4.5rem;
-        padding-bottom: 2.5rem;
+        padding-top: 2rem;
+        padding-bottom: 2rem;
     }
 
     .info-card img {
