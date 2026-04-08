@@ -18,12 +18,14 @@ export const AuthContext = React.createContext();
 
 function App() {
   const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const savedUser = localStorage.getItem('user');
     if (savedUser) {
       setUser(JSON.parse(savedUser));
     }
+    setLoading(false);
   }, []);
 
   const login = (userData) => {
@@ -35,6 +37,15 @@ function App() {
     setUser(null);
     localStorage.removeItem('user');
   };
+
+  if (loading) {
+    return (
+      <div className="loading-screen">
+        <div className="loading-spinner"></div>
+        <div className="loading-text">Carregando...</div>
+      </div>
+    );
+  }
 
   return (
     <AuthContext.Provider value={{ user, login, logout }}>
