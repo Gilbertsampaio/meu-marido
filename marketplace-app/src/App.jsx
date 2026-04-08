@@ -49,7 +49,7 @@ function App() {
             <Route path="/booking/:id" element={user && user.type === 'cliente' ? <Booking /> : <Navigate to="/login" />} />
             <Route path="/confirmation" element={<Confirmation />} />
             <Route path="/professional-dashboard" element={user && user.type === 'profissional' ? <ProfessionalDashboard /> : <Navigate to="/login" />} />
-            <Route path="/profile" element={user ? <Profile /> : <Navigate to="/login" />} />
+            <Route path="/profile" element={<Profile />} />
           </Routes>
         </div>
       </Router>

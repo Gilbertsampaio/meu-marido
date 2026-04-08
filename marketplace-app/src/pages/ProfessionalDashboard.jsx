@@ -1,10 +1,11 @@
 ﻿import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { mockServices } from '../data/mockData';
 import './Dashboard.css';
 
 const ProfessionalDashboard = () => {
   const [services, setServices] = useState(mockServices);
+  const navigate = useNavigate();
 
   const handleAccept = (id) => {
     setServices(services.map(s => s.id === id ? { ...s, status: 'aceito' } : s));
@@ -16,9 +17,18 @@ const ProfessionalDashboard = () => {
 
   return (
     <div className="dashboard">
-      <header className="dashboard-header">
-        <h1>Dashboard do Profissional</h1>
-        <Link to="/profile">Perfil</Link>
+      <header className="hero">
+        <div className="hero-copy">
+          <span className="eyebrow">Meu Marido</span>
+          <h1>Dashboard do Profissional</h1>
+          <p>Gerencie suas solicitações e serviços.</p>
+
+          <div className="hero-actions">
+            <button className="primary-btn" onClick={() => navigate('/profile')}>
+              Perfil
+            </button>
+          </div>
+        </div>
       </header>
 
       <div className="services-list">

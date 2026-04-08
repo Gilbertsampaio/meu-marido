@@ -1,62 +1,102 @@
 ﻿import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { mockProfessionals } from '../data/mockData';
 import './Dashboard.css';
 
+const getInitials = (name) => {
+    return name
+        .split(' ')
+        .map((part) => part[0])
+        .slice(0, 2)
+        .join('')
+        .toUpperCase();
+};
+
+const renderStars = (rating) => {
+    const filledStars = Math.round(rating);
+    return Array.from({ length: 5 }, (_, index) => (
+        <span key={index} className={index < filledStars ? 'star filled' : 'star'}>
+            ★
+        </span>
+    ));
+};
+
 const ClientDashboard = () => {
-  const [filter, setFilter] = useState({ service: '', price: '', rating: '' });
+    const [filter, setFilter] = useState({ service: '', price: '', rating: '' });
+    const navigate = useNavigate();
 
-  const filteredProfessionals = mockProfessionals.filter(prof => {
+    const filteredProfessionals = mockProfessionals.filter(prof => {
+        return (
+            (filter.service === '' || prof.service.toLowerCase().includes(filter.service.toLowerCase())) &&
+            (filter.price === '' || prof.averagePrice <= parseInt(filter.price)) &&
+            (filter.rating === '' || prof.rating >= parseFloat(filter.rating))
+        );
+    });
+
     return (
-      (filter.service === '' || prof.service.toLowerCase().includes(filter.service.toLowerCase())) &&
-      (filter.price === '' || prof.averagePrice <= parseInt(filter.price)) &&
-      (filter.rating === '' || prof.rating >= parseFloat(filter.rating))
+        <div className="dashboard">
+            <header className="hero">
+                <div className="hero-copy">
+                    <span className="eyebrow">Meu Marido</span>
+                    <h1>Dashboard do Cliente</h1>
+                    <p>Área destinada aos clientes cadastrados.</p>
+
+                    <div className="hero-actions">
+                        <button className="primary-btn" onClick={() => navigate('/profile')}>
+                            Perfil
+                        </button>
+                    </div>
+                </div>
+            </header>
+
+            <div className="filters">
+                <input
+                    type="text"
+                    placeholder="Filtrar por serviço"
+                    value={filter.service}
+                    onChange={(e) => setFilter({ ...filter, service: e.target.value })}
+                />
+                <input
+                    type="number"
+                    placeholder="Preço máximo"
+                    value={filter.price}
+                    onChange={(e) => setFilter({ ...filter, price: e.target.value })}
+                />
+                <input
+                    type="number"
+                    placeholder="Avaliação mínima"
+                    value={filter.rating}
+                    onChange={(e) => setFilter({ ...filter, rating: e.target.value })}
+                    step="0.1"
+                />
+            </div>
+
+            <div className="professionals-list">
+                {filteredProfessionals.map(prof => (
+                    <div key={prof.id} className="professional-card">
+                        <div className="card-top">
+                            {/* <div className="initials">{getInitials(prof.name)}</div> */}
+                            <img className="initials" src={prof.photo} alt={prof.name} />
+                            <div>
+                                <h3>{prof.name}</h3>
+                                <span className="service-tag">{prof.service}</span>
+                            </div>
+                        </div>
+
+                        <div className="card-rating">
+                            <div className="stars">{renderStars(prof.rating)}</div>
+                            <small>{prof.rating.toFixed(1)} ({prof.reviews || 32})</small>
+                        </div>
+
+                        <div className="card-footer">
+                            <strong>R$ {prof.averagePrice}</strong>
+                            <Link to={`/professional/${prof.id}`} className="hire-btn">Contratar</Link>
+                        </div>
+                    </div>
+                ))}
+            </div>
+        </div>
     );
-  });
-
-  return (
-    <div className="dashboard">
-      <header className="dashboard-header">
-        <h1>Dashboard do Cliente</h1>
-        <Link to="/profile">Perfil</Link>
-      </header>
-
-      <div className="filters">
-        <input
-          type="text"
-          placeholder="Filtrar por serviço"
-          value={filter.service}
-          onChange={(e) => setFilter({ ...filter, service: e.target.value })}
-        />
-        <input
-          type="number"
-          placeholder="Preço máximo"
-          value={filter.price}
-          onChange={(e) => setFilter({ ...filter, price: e.target.value })}
-        />
-        <input
-          type="number"
-          placeholder="Avaliação mínima"
-          value={filter.rating}
-          onChange={(e) => setFilter({ ...filter, rating: e.target.value })}
-          step="0.1"
-        />
-      </div>
-
-      <div className="professionals-list">
-        {filteredProfessionals.map(prof => (
-          <div key={prof.id} className="professional-card">
-            <img src={prof.photo} alt={prof.name} />
-            <h3>{prof.name}</h3>
-            <p>{prof.service}</p>
-            <div className="rating">? {prof.rating}</div>
-            <p>R$ {prof.averagePrice}/hora</p>
-            <Link to={`/professional/${prof.id}`} className="details-btn">Ver detalhes</Link>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
 };
 
 export default ClientDashboard;

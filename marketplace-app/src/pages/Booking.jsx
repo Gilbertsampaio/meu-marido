@@ -45,34 +45,47 @@ const Booking = () => {
 
   return (
     <div className="booking">
-      <header className="booking-header">
+      <div className="hero">
+        <p className="eyebrow">Contratação</p>
         <h1>Contratar {professional?.name}</h1>
-      </header>
+        <p>Agende seu serviço com este profissional</p>
+        <div className="hero-actions">
+          <button className="primary-btn" onClick={() => navigate('/client-dashboard')}>
+            ← Voltar
+          </button>
+        </div>
+      </div>
 
-      <form onSubmit={handleSubmit} className="booking-form">
-        <div className="form-group">
-          <label>Data do serviço</label>
-          <input
-            type="date"
-            name="date"
-            value={formData.date}
-            onChange={handleChange}
-            className={errors.date ? 'error' : ''}
-          />
-          {errors.date && <span className="error-text">{errors.date}</span>}
+      <div className="booking-container">
+        <div className="booking-card">
+          <h3>Detalhes do Serviço</h3>
+          <form onSubmit={handleSubmit} className="booking-form">
+            <div className="form-group">
+              <label>Data do serviço</label>
+              <input
+                type="date"
+                name="date"
+                value={formData.date}
+                onChange={handleChange}
+                className={errors.date ? 'error' : ''}
+              />
+              {errors.date && <span className="error-text">{errors.date}</span>}
+            </div>
+            <div className="form-group">
+              <label>Descrição do problema</label>
+              <textarea
+                name="description"
+                value={formData.description}
+                onChange={handleChange}
+                placeholder="Descreva detalhadamente o serviço que você precisa..."
+                className={errors.description ? 'error' : ''}
+              />
+              {errors.description && <span className="error-text">{errors.description}</span>}
+            </div>
+            <button type="submit" className="confirm-btn">Confirmar contratação</button>
+          </form>
         </div>
-        <div className="form-group">
-          <label>Descrição do problema</label>
-          <textarea
-            name="description"
-            value={formData.description}
-            onChange={handleChange}
-            className={errors.description ? 'error' : ''}
-          />
-          {errors.description && <span className="error-text">{errors.description}</span>}
-        </div>
-        <button type="submit" className="confirm-btn">Confirmar contratação</button>
-      </form>
+      </div>
     </div>
   );
 };

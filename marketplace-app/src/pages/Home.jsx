@@ -1,5 +1,5 @@
-﻿import React, { useContext, useMemo } from 'react';
-import { useNavigate } from 'react-router-dom';
+﻿import React, { useContext, useMemo, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../App';
 import { mockProfessionals } from '../data/mockData';
 import './Home.css';
@@ -16,6 +16,12 @@ const getInitials = (name) => {
 const Home = () => {
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (user) {
+      navigate(user.type === 'cliente' ? '/client-dashboard' : '/professional-dashboard');
+    }
+  }, [user, navigate]);
 
   const colorOptions = [
     'linear-gradient(135deg, #38bdf8 0%, #7c3aed 100%)',
@@ -95,7 +101,8 @@ const Home = () => {
           {mockProfessionals.map((prof, index) => (
             <div key={prof.id} className="professional-card" style={cardStyles[index]}>
               <div className="card-top">
-                <div className="initials" style={avatarStyles[index]}>{getInitials(prof.name)}</div>
+                {/* <div className="initials" style={avatarStyles[index]}>{getInitials(prof.name)}</div> */}
+                <img className="initials" src={prof.photo} alt={prof.name} />
                 <div>
                   <h3>{prof.name}</h3>
                   <span className="service-tag">{prof.service}</span>
@@ -109,7 +116,8 @@ const Home = () => {
 
               <div className="card-footer">
                 <strong>R$ {prof.averagePrice}</strong>
-                <button onClick={() => handleHire(prof.id)} className="hire-btn">Contratar</button>
+                {/* <button onClick={() => handleHire(prof.id)} className="hire-btn">Contratar</button> */}
+                <Link to={handleHire(prof.id)} className="hire-btn">Contratar</Link>
               </div>
             </div>
           ))}

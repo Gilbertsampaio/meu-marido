@@ -43,13 +43,24 @@ const Register = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (validate()) {
+      const firstName = formData.name.split(' ')[0];
+      const photoUrl = `https://api.dicebear.com/9.x/thumbs/svg?seed=${firstName}`;
+      
       const newUser = {
         id: mockUsers.length + 1,
         name: formData.name,
         email: formData.email,
         password: formData.password,
-        type: formData.userType
+        type: formData.userType,
+        photo: photoUrl
       };
+
+      if (formData.userType === 'profissional') {
+        newUser.service = formData.service;
+        newUser.description = formData.description;
+        newUser.averagePrice = parseFloat(formData.averagePrice);
+      }
+
       mockUsers.push(newUser);
       login(newUser);
       navigate(formData.userType === 'cliente' ? '/client-dashboard' : '/professional-dashboard');

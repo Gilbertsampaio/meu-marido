@@ -4,14 +4,16 @@ export const mockUsers = [
   {
     id: 1,
     name: 'João Silva',
-    email: 'joao@email.com',
+    photo: 'https://api.dicebear.com/9.x/thumbs/svg?seed=João',
+    email: 'joao@gmail.com',
     password: '123456',
     type: 'cliente'
   },
   {
     id: 2,
     name: 'Maria Santos',
-    email: 'maria@email.com',
+    photo: 'https://api.dicebear.com/9.x/thumbs/svg?seed=Maria',
+    email: 'maria@gmail.com',
     password: '123456',
     type: 'profissional'
   }
@@ -25,7 +27,7 @@ export const mockProfessionals = [
     service: 'Eletricista',
     description: 'Especialista em instalações elétricas residenciais e comerciais.',
     averagePrice: 80,
-    photo: 'https://via.placeholder.com/150',
+    photo: 'https://api.dicebear.com/9.x/thumbs/svg?seed=Maria',
     rating: 4.5,
     reviews: 47
   },
@@ -36,7 +38,7 @@ export const mockProfessionals = [
     service: 'Encanador',
     description: 'Reparo e instalação de encanamentos.',
     averagePrice: 70,
-    photo: 'https://via.placeholder.com/150',
+    photo: 'https://api.dicebear.com/9.x/thumbs/svg?seed=Carlos',
     rating: 4.2,
     reviews: 31
   },
@@ -47,7 +49,7 @@ export const mockProfessionals = [
     service: 'Diarista',
     description: 'Serviços de limpeza e organização.',
     averagePrice: 50,
-    photo: 'https://via.placeholder.com/150',
+    photo: 'https://api.dicebear.com/9.x/thumbs/svg?seed=Ana',
     rating: 4.8,
     reviews: 83
   }

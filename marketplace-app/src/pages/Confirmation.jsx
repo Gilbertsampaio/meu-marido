@@ -5,10 +5,19 @@ import './Confirmation.css';
 const Confirmation = () => {
   return (
     <div className="confirmation">
-      <div className="confirmation-message">
-        <h2>? Serviço solicitado com sucesso!</h2>
-        <p>Seu pedido foi enviado ao profissional. Você será notificado quando ele aceitar.</p>
-        <Link to="/client-dashboard" className="back-btn">Voltar ao Dashboard</Link>
+      <div className="hero">
+        <p className="eyebrow">Meu Marido</p>
+        <h1>Confirmação</h1>
+        <p>Seu pedido foi enviado com sucesso.</p>
+      </div>
+
+      <div className="confirmation-container">
+        <div className="confirmation-card">
+          <div className="confirmation-icon">✅</div>
+          <h2>Serviço solicitado com sucesso!</h2>
+          <p>Seu pedido foi enviado ao profissional. Você será notificado quando ele aceitar.</p>
+          <Link to="/client-dashboard" className="primary-btn">Voltar ao Dashboard</Link>
+        </div>
       </div>
     </div>
   );
