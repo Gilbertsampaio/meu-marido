@@ -3,6 +3,15 @@ import { useParams, Link, useNavigate } from 'react-router-dom';
 import { mockProfessionals } from '../data/mockData';
 import './Details.css';
 
+const renderStars = (rating) => {
+    const filledStars = Math.round(rating);
+    return Array.from({ length: 5 }, (_, index) => (
+        <span key={index} className={index < filledStars ? 'star filled' : 'star'}>
+            ★
+        </span>
+    ));
+};
+
 const ProfessionalDetails = () => {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -29,7 +38,8 @@ const ProfessionalDetails = () => {
           <p className="description">{professional.description}</p>
           <div className="professional-info">
             <div className="rating-section">
-              <span className="rating">⭐ {professional.rating}</span>
+              <div className="stars">{renderStars(professional.rating)}</div>
+              <small>{professional.rating.toFixed(1)} ({professional.reviews || 32})</small>
             </div>
             <p className="price">R$ {professional.averagePrice}/hora</p>
           </div>
@@ -39,8 +49,8 @@ const ProfessionalDetails = () => {
         <div className="reviews-card">
           <h3>Avaliações</h3>
           <div className="review">
-            <div className="review-rating">⭐ 5</div>
-            <p>Excelente trabalho!</p>
+            <div className="review-rating">{renderStars(5)}</div>
+            <p>Maria da Silva - Excelente trabalho!</p>
           </div>
         </div>
       </div>

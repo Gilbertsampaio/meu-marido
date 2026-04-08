@@ -51,6 +51,7 @@ const Login = () => {
 
   return (
     <div className="auth-container">
+        {message && <div className="alert-banner">{message}</div>}
       <div className="auth-card">
         <div className="auth-header">
           <div className="back-action">
@@ -61,8 +62,6 @@ const Login = () => {
             <p>Entre na sua conta Meu Marido</p>
           </div>
         </div>
-
-        {message && <div className="alert-banner">{message}</div>}
 
         <div className="switch-group">
           <button
