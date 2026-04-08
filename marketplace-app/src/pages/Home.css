@@ -1,0 +1,218 @@
+﻿.home {
+  min-height: 100vh;
+  background: radial-gradient(circle at top, #4f46e5 0%, #1e293b 45%, #0f172a 100%);
+  color: #f8fafc;
+}
+
+.hero {
+  padding: 6rem 1.5rem 3rem;
+  text-align: center;
+}
+
+.hero-copy {
+  max-width: 750px;
+  margin: 0 auto;
+}
+
+.eyebrow {
+  display: inline-block;
+  margin-bottom: 1rem;
+  color: #7dd3fc;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  font-weight: 700;
+  font-size: 0.85rem;
+}
+
+.hero h1 {
+  font-size: clamp(3rem, 5vw, 4.5rem);
+  line-height: 1.02;
+  margin: 0;
+  color: #dbeafe;
+}
+
+.hero p {
+  max-width: 620px;
+  margin: 1.5rem auto 0;
+  color: #cbd5e1;
+  font-size: 1.05rem;
+  line-height: 1.8;
+}
+
+.hero-actions {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-top: 2rem;
+}
+
+.primary-btn,
+.secondary-btn {
+  min-width: 220px;
+  border: none;
+  border-radius: 999px;
+  padding: 1rem 1.75rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.primary-btn {
+  background: linear-gradient(135deg, #818cf8 0%, #22c55e 100%);
+  color: #f8fafc;
+  box-shadow: 0 18px 30px rgba(56, 189, 248, 0.18);
+}
+
+.secondary-btn {
+  background: rgba(255, 255, 255, 0.08);
+  color: #f8fafc;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.primary-btn:hover,
+.secondary-btn:hover {
+  transform: translateY(-2px);
+}
+
+.ghost-link {
+  margin-top: 1.25rem;
+  background: transparent;
+  border: none;
+  color: #34d399;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.featured-section {
+  padding: 2rem 1.5rem 4rem;
+}
+
+.section-header h2 {
+  margin: 0 0 1.5rem;
+  font-size: 1.5rem;
+  color: #e2e8f0;
+}
+
+.professional-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.5rem;
+}
+
+.home .professional-card {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(14px);
+  border: 1px solid rgba(148, 163, 184, 0.24);
+  border-radius: 30px;
+  padding: 1.75rem;
+  box-shadow: 0 24px 50px rgba(15, 23, 42, 0.22);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 230px;
+}
+
+.home .card-top {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.home .initials {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(135deg, #14b8a6 0%, #60a5fa 100%);
+  color: #fff;
+  font-weight: 800;
+  font-size: 1rem;
+}
+
+.home .professional-card h3 {
+  margin: 0;
+  font-size: 1.15rem;
+  color: #eff6ff;
+}
+
+.home .service-tag {
+  display: inline-flex;
+  margin-top: 0.35rem;
+  padding: 0.3rem 0.75rem;
+  border-radius: 999px;
+  background: rgba(148, 163, 184, 0.16);
+  color: #cbd5e1;
+  font-size: 0.88rem;
+}
+
+.home .card-rating {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-weight: 600;
+  margin-bottom: 1.35rem;
+}
+
+.home .card-rating .stars {
+  display: flex;
+  gap: 0.2rem;
+}
+
+.home .card-rating .star {
+  color: rgba(255, 255, 255, 0.35);
+  font-size: 0.92rem;
+}
+
+.home .card-rating .star.filled {
+  color: #facc15;
+}
+
+.home .card-rating small {
+  color: #cbd5e1;
+  font-weight: 500;
+}
+
+.home .card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.home .card-footer strong {
+  font-size: 1.3rem;
+  color: #4ade80;
+}
+
+.home .hire-btn {
+  background: linear-gradient(135deg, #667eea 0%, #8b5cf6 100%);
+  color: #f8fafc;
+  border: none;
+  padding: 0.9rem 1.5rem;
+  border-radius: 16px;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.home .hire-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 18px 30px rgba(104, 109, 224, 0.2);
+}
+
+@media (max-width: 768px) {
+  .hero {
+    padding-top: 4.5rem;
+  }
+
+  .hero-actions {
+    flex-direction: column;
+  }
+
+  .primary-btn,
+  .secondary-btn {
+    width: 100%;
+  }
+}

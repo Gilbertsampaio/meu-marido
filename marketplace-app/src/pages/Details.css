@@ -1,0 +1,57 @@
+﻿.details {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 2rem;
+}
+
+.details-header {
+  margin-bottom: 2rem;
+}
+
+.details-header a {
+  color: white;
+  text-decoration: none;
+}
+
+.professional-details {
+  background: rgba(255, 255, 255, 0.9);
+  color: #333;
+  border-radius: 10px;
+  padding: 2rem;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.professional-details img {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  margin-bottom: 1rem;
+}
+
+.hire-btn {
+  display: inline-block;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 5px;
+  text-decoration: none;
+  transition: transform 0.2s;
+}
+
+.hire-btn:hover {
+  transform: scale(1.05);
+}
+
+.reviews {
+  background: rgba(255, 255, 255, 0.9);
+  color: #333;
+  border-radius: 10px;
+  padding: 1.5rem;
+}
+
+.review {
+  border-bottom: 1px solid #ddd;
+  padding: 1rem 0;
+}
