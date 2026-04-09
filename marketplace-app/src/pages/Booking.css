@@ -135,7 +135,7 @@
 .form-group textarea {
   resize: vertical;
   min-height: 120px;
-  border-radius: 25px;
+  border-radius: 25px !important;
 }
 
 .error-text {

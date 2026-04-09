@@ -22,27 +22,39 @@ const ProfessionalDashboard = () => {
 
   const handleAccept = async (id) => {
     try {
-      await fetch(`http://localhost:3001/api/services/${id}`, {
-        method: 'PATCH', // ou PUT, dependendo da API
+      const response = await fetch(`http://localhost:3001/api/services/${id}`, {
+        method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ status: 'aceito' }),
       });
-      setServices(services.map(s => s.id === id ? { ...s, status: 'aceito' } : s));
+
+      const updatedService = await response.json();
+
+      if (!response.ok) throw new Error(updatedService.error || 'Erro ao aceitar serviço');
+
+      setServices(services.map(s => s.id === id ? updatedService : s));
     } catch (error) {
       console.error('Erro ao aceitar serviço:', error);
+      alert(error.message);
     }
   };
 
   const handleReject = async (id) => {
     try {
-      await fetch(`http://localhost:3001/api/services/${id}`, {
+      const response = await fetch(`http://localhost:3001/api/services/${id}`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ status: 'cancelado' }),
       });
-      setServices(services.map(s => s.id === id ? { ...s, status: 'cancelado' } : s));
+
+      const updatedService = await response.json();
+
+      if (!response.ok) throw new Error(updatedService.error || 'Erro ao recusar serviço');
+
+      setServices(services.map(s => s.id === id ? updatedService : s));
     } catch (error) {
       console.error('Erro ao recusar serviço:', error);
+      alert(error.message);
     }
   };
 
@@ -66,19 +78,27 @@ const ProfessionalDashboard = () => {
       <div className="services-list">
         <h2>Solicitações recebidas</h2>
         {services.length === 0 && <p>Nenhuma solicitação encontrada.</p>}
-        {services.map(service => (
-          <div key={service.id} className="service-card">
-            <p><strong>Data:</strong> {new Date(service.date).toLocaleDateString()}</p>
-            <p><strong>Descrição:</strong> {service.description}</p>
-            <p><strong>Status:</strong> {service.status}</p>
-            {service.status === 'pendente' && (
-              <div className="actions">
-                <button onClick={() => handleAccept(service.id)} className="accept-btn">Aceitar</button>
-                <button onClick={() => handleReject(service.id)} className="reject-btn">Recusar</button>
-              </div>
-            )}
-          </div>
-        ))}
+
+        {services.map(service => {
+          // Formata a data para DD/MM/YYYY
+          const formattedDate = service.service_date
+            ? service.service_date.split('T')[0].split('-').reverse().join('/')
+            : 'Data inválida';
+
+          return (
+            <div key={service.id} className="service-card">
+              <p><strong>Data:</strong> {formattedDate}</p>
+              <p><strong>Descrição:</strong> {service.description}</p>
+              <p><strong>Status:</strong> {service.status}</p>
+              {service.status === 'pendente' && (
+                <div className="actions">
+                  <button onClick={() => handleAccept(service.id)} className="accept-btn">Aceitar</button>
+                  <button onClick={() => handleReject(service.id)} className="reject-btn">Recusar</button>
+                </div>
+              )}
+            </div>
+          );
+        })}
       </div>
     </div>
   );

@@ -49,7 +49,7 @@ const ProfessionalDetails = () => {
         <p>{professional.service}</p>
         <div className="hero-actions">
           <button className="primary-btn" onClick={() => navigate('/client-dashboard')}>
-            ← Voltar
+            Voltar
           </button>
         </div>
       </div>

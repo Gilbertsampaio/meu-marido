@@ -12,6 +12,7 @@ import Booking from './pages/Booking';
 import Confirmation from './pages/Confirmation';
 import ProfessionalDashboard from './pages/ProfessionalDashboard';
 import Profile from './pages/Profile';
+import MyServices from './pages/MyServices';
 
 // Context for auth
 export const AuthContext = React.createContext();
@@ -61,6 +62,7 @@ function App() {
             <Route path="/confirmation" element={<Confirmation />} />
             <Route path="/professional-dashboard" element={user && user.type === 'profissional' ? <ProfessionalDashboard /> : <Navigate to="/login" />} />
             <Route path="/profile" element={<Profile />} />
+            <Route path="/my-services" element={<MyServices />} />
           </Routes>
         </div>
       </Router>

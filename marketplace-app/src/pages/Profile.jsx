@@ -57,11 +57,17 @@ const Profile = () => {
           <p>Gerencie suas informações pessoais.</p>
 
           <div className="hero-actions">
-            <button 
-              className="primary-btn" 
+            <button
+              className="primary-btn"
               onClick={() => navigate(user?.type === 'cliente' ? '/client-dashboard' : '/professional-dashboard')}
             >
               Voltar
+            </button>
+            <button
+              className="primary-btn"
+              onClick={() => navigate('/my-services')}
+            >
+              Meus Serviços
             </button>
             <button onClick={handleLogoutClick} className="secondary-btn">
               Sair
@@ -73,10 +79,10 @@ const Profile = () => {
       <div className="profile-info">
         <div className="info-card">
           <div className="photo-container">
-            <img 
-              className="initials clickable" 
-              src={user?.photo} 
-              alt={user?.name} 
+            <img
+              className="initials clickable"
+              src={user?.photo}
+              alt={user?.name}
               onClick={handleEditPhotoClick}
               title="Clique para alterar a foto"
             />

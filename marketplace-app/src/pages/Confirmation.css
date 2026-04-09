@@ -26,12 +26,13 @@
 .confirmation .hero p {
   color: rgba(255, 255, 255, 0.8);
   font-size: 1.05rem;
+  margin-top: 0;
 }
 
 .confirmation-container {
   display: flex;
   justify-content: center;
-  padding: 2rem;
+  padding: 1.5rem;
 }
 
 .confirmation-card {
@@ -47,8 +48,14 @@
 }
 
 .confirmation-icon {
-  font-size: 2.5rem;
+  font-size: 3rem;
   margin-bottom: 1rem;
+  animation: bounce 1s ease infinite alternate;
+}
+
+@keyframes bounce {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-10px); }
 }
 
 .confirmation-card h2 {

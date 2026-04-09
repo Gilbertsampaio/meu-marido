@@ -25,9 +25,9 @@ router.post('/', async (req, res) => {
         if (type === 'profissional' && professionalData) {
             const { service, description, averagePrice } = professionalData;
             await connection.execute(
-                `INSERT INTO professionals (user_id, service, description, average_price, photo)
-         VALUES (?, ?, ?, ?, ?)`,
-                [userId, service, description, averagePrice, photo]
+                `INSERT INTO professionals (user_id, service, description, average_price)
+         VALUES (?, ?, ?, ?)`,
+                [userId, service, description, averagePrice]
             );
         }
 

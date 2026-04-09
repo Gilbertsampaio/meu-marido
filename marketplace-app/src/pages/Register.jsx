@@ -96,7 +96,7 @@ const Register = () => {
       <div className="auth-card">
         <div className="auth-header">
           <div className="back-action">
-            <Link to="/" className="back-link">← Voltar</Link>
+            <Link to="/" className="back-link">Voltar</Link>
           </div>
           <div className="title-panel">
             <h2>Criar conta</h2>

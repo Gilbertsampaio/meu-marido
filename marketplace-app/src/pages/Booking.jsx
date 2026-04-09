@@ -86,7 +86,7 @@ const Booking = () => {
         <p>Agende seu serviço com este profissional</p>
         <div className="hero-actions">
           <button className="primary-btn" onClick={() => navigate('/client-dashboard')}>
-            ← Voltar
+            Voltar
           </button>
         </div>
       </div>

@@ -3,7 +3,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 1rem;
+  padding: 1.5rem;
   background: linear-gradient(180deg, #4f46e5 0%, #2f3f7a 45%, #212b45 100%);
 }
 
@@ -13,7 +13,7 @@
   backdrop-filter: blur(18px);
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 30px;
-  padding: 2.5rem 1.75rem;
+  padding: 2.5rem 1.50rem;
   box-shadow: 0 30px 80px rgba(15, 23, 42, 0.28);
   min-height: 635px;
   display: flex;
@@ -136,6 +136,11 @@
   border-color: rgba(129, 140, 248, 0.9);
   background: rgba(255, 255, 255, 0.14);
   box-shadow: 0 0 0 4px rgba(129, 140, 248, 0.12);
+}
+
+.form-group select option {
+  background-color: #ffffff;
+  color: #1e293b;
 }
 
 .form-group textarea {
