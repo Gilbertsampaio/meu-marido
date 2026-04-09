@@ -40,30 +40,54 @@ const Register = () => {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
     if (validate()) {
       const firstName = formData.name.split(' ')[0];
       const photoUrl = `https://api.dicebear.com/9.x/thumbs/svg?seed=${firstName}`;
-      
+
       const newUser = {
-        id: mockUsers.length + 1,
         name: formData.name,
         email: formData.email,
         password: formData.password,
         type: formData.userType,
-        photo: photoUrl
+        photo: photoUrl,
+        // Apenas para profissionais, o backend vai inserir na tabela professionals
+        professionalData: formData.userType === 'profissional' ? {
+          service: formData.service,
+          description: formData.description,
+          averagePrice: parseFloat(formData.averagePrice)
+        } : null
       };
 
-      if (formData.userType === 'profissional') {
-        newUser.service = formData.service;
-        newUser.description = formData.description;
-        newUser.averagePrice = parseFloat(formData.averagePrice);
-      }
+      try {
+        const response = await fetch('http://localhost:3001/api/users', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(newUser)
+        });
 
-      mockUsers.push(newUser);
-      login(newUser);
-      navigate(formData.userType === 'cliente' ? '/client-dashboard' : '/professional-dashboard');
+        const data = await response.json();
+
+        if (!response.ok) {
+          throw new Error(data.error);
+        }
+
+        newUser.id = data.id;
+
+        login(newUser);
+
+        navigate(
+          newUser.type === 'cliente'
+            ? '/client-dashboard'
+            : '/professional-dashboard'
+        );
+
+      } catch (error) {
+        console.error(error);
+        alert('Erro ao cadastrar usuário');
+      }
     }
   };
 

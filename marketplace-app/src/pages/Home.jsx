@@ -101,7 +101,7 @@ const Home = () => {
           </button>
         </div>
 
-        {isTop && (
+        {mockProfessionals.length > 0 && isTop && (
           <div
             className="scroll-indicator"
             onClick={() =>
@@ -113,38 +113,40 @@ const Home = () => {
         )}
       </main>
 
-      <section className="featured-section">
-        <div className="section-header">
-          <h2>Profissionais em destaque</h2>
-        </div>
+      {mockProfessionals.length > 0 && (
+        <section className="featured-section">
+          <div className="section-header">
+            <h2>Profissionais em destaque</h2>
+          </div>
 
-        <div className="professional-grid">
-          {mockProfessionals.map((prof, index) => (
-            <div key={prof.id} className="professional-card" style={cardStyles[index]}>
-              <div className="card-top">
-                {/* <div className="initials" style={avatarStyles[index]}>{getInitials(prof.name)}</div> */}
-                <img className="initials" src={prof.photo} alt={prof.name} />
-                <div>
-                  <h3>{prof.name}</h3>
-                  <span className="service-tag">{prof.service}</span>
+          <div className="professional-grid">
+            {mockProfessionals.map((prof, index) => (
+              <div key={prof.id} className="professional-card" style={cardStyles[index]}>
+                <div className="card-top">
+                  {/* <div className="initials" style={avatarStyles[index]}>{getInitials(prof.name)}</div> */}
+                  <img className="initials" src={prof.photo} alt={prof.name} />
+                  <div>
+                    <h3>{prof.name}</h3>
+                    <span className="service-tag">{prof.service}</span>
+                  </div>
+                </div>
+
+                <div className="card-rating">
+                  <div className="stars">{renderStars(prof.rating)}</div>
+                  <small>{prof.rating.toFixed(1)} ({prof.reviews || 32})</small>
+                </div>
+
+                <div className="card-footer">
+                  <strong>R$ {prof.averagePrice}</strong>
+                  <button onClick={() => handleHire(prof.id)} className="hire-btn">
+                    Contratar
+                  </button>
                 </div>
               </div>
-
-              <div className="card-rating">
-                <div className="stars">{renderStars(prof.rating)}</div>
-                <small>{prof.rating.toFixed(1)} ({prof.reviews || 32})</small>
-              </div>
-
-              <div className="card-footer">
-                <strong>R$ {prof.averagePrice}</strong>
-                <button onClick={() => handleHire(prof.id)} className="hire-btn">
-                  Contratar
-                </button>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
+            ))}
+          </div>
+        </section>
+      )}
     </div>
   );
 };

@@ -1,22 +1,44 @@
-﻿import React from 'react';
+﻿import React, { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
-import { mockProfessionals } from '../data/mockData';
 import './Details.css';
 
 const renderStars = (rating) => {
-    const filledStars = Math.round(rating);
-    return Array.from({ length: 5 }, (_, index) => (
-        <span key={index} className={index < filledStars ? 'star filled' : 'star'}>
-            ★
-        </span>
-    ));
+  const filledStars = Math.round(rating);
+  return Array.from({ length: 5 }, (_, index) => (
+    <span key={index} className={index < filledStars ? 'star filled' : 'star'}>
+      ★
+    </span>
+  ));
 };
 
 const ProfessionalDetails = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const professional = mockProfessionals.find(p => p.id === parseInt(id));
+  const [professional, setProfessional] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
 
+  useEffect(() => {
+    const fetchProfessional = async () => {
+      try {
+        const response = await fetch(`http://localhost:3001/api/professionals/${id}`);
+        if (!response.ok) {
+          throw new Error('Erro ao buscar profissional');
+        }
+        const data = await response.json();
+        setProfessional(data);
+      } catch (err) {
+        setError(err.message || 'Erro desconhecido');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProfessional();
+  }, [id]);
+
+  if (loading) return <div>Carregando...</div>;
+  if (error) return <div>{error}</div>;
   if (!professional) return <div>Profissional não encontrado</div>;
 
   return (
@@ -39,11 +61,13 @@ const ProfessionalDetails = () => {
           <div className="professional-info">
             <div className="rating-section">
               <div className="stars">{renderStars(professional.rating)}</div>
-              <small>{professional.rating.toFixed(1)} ({professional.reviews || 32})</small>
+              <small>{Number(professional.rating || 0).toFixed(1)} ({professional.reviews || 0})</small>
             </div>
-            <p className="price">R$ {professional.averagePrice}/hora</p>
+            <p className="price">R$ {professional.average_price || professional.averagePrice}/hora</p>
           </div>
-          <Link to={`/booking/${professional.id}`} className="primary-btn">Contratar serviço</Link>
+          <Link to={`/booking/${professional.userId}`} className="primary-btn">
+            Contratar serviço
+          </Link>
         </div>
 
         <div className="reviews-card">

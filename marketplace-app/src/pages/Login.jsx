@@ -32,18 +32,30 @@ const Login = () => {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (validate()) {
-      const user = mockUsers.find(
-        (u) => u.email === email && u.password === password && u.type === userType
-      );
-      if (user) {
-        login(user);
-        navigate(user.type === 'cliente' ? '/client-dashboard' : '/professional-dashboard');
-      } else {
-        setGeneralError('Credenciais inválidas');
+    if (!validate()) return;
+
+    try {
+      const response = await fetch('http://localhost:3001/api/auth', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password, type: userType })
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        setGeneralError(data.error || 'Erro ao autenticar');
+        return;
       }
+
+      login(data); // salva usuário no contexto
+      navigate(data.type === 'cliente' ? '/client-dashboard' : '/professional-dashboard');
+
+    } catch (error) {
+      console.error(error);
+      setGeneralError('Erro ao autenticar usuário');
     }
   };
 
@@ -51,7 +63,7 @@ const Login = () => {
 
   return (
     <div className="auth-container">
-        {message && <div className="alert-banner">{message}</div>}
+      {message && <div className="alert-banner">{message}</div>}
       <div className="auth-card">
         <div className="auth-header">
           <div className="back-action">

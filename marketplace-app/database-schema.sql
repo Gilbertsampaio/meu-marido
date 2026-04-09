@@ -6,7 +6,8 @@ CREATE TABLE users (
     name VARCHAR(255) NOT NULL,
     email VARCHAR(255) UNIQUE NOT NULL,
     password VARCHAR(255) NOT NULL,
-    user_type VARCHAR(50) NOT NULL CHECK (user_type IN ('cliente', 'profissional')),
+    photo VARCHAR(500),
+    type VARCHAR(50) NOT NULL CHECK (type IN ('cliente', 'profissional')),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -17,8 +18,9 @@ CREATE TABLE professionals (
     service VARCHAR(255) NOT NULL,
     description TEXT,
     average_price DECIMAL(10,2),
-    photo_url VARCHAR(500),
+    photo VARCHAR(500),
     rating DECIMAL(3,2) DEFAULT 0.0,
+    reviews DECIMAL(10,2),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 

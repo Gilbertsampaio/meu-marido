@@ -1,16 +1,34 @@
-﻿import React, { useState } from 'react';
+﻿import React, { useState, useContext, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { mockProfessionals, mockServices } from '../data/mockData';
+import { AuthContext } from '../App';
 import './Booking.css';
 
 const Booking = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const [formData, setFormData] = useState({
-    date: '',
-    description: ''
-  });
+  const { user } = useContext(AuthContext);
+
+  const [professional, setProfessional] = useState(null);
+  const [formData, setFormData] = useState({ date: '', description: '' });
   const [errors, setErrors] = useState({});
+
+  // Busca o profissional do banco ao carregar a página
+  useEffect(() => {
+    const fetchProfessional = async () => {
+      try {
+        const res = await fetch(`http://localhost:3001/api/professionals/${id}`);
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || 'Erro ao buscar profissional');
+        setProfessional(data);
+      } catch (error) {
+        console.error(error);
+        alert(error.message);
+        navigate('/client-dashboard');
+      }
+    };
+
+    fetchProfessional();
+  }, [id, navigate]);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -24,30 +42,47 @@ const Booking = () => {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!professional) return;
+
     if (validate()) {
-      // Mock booking
-      const newService = {
-        id: mockServices.length + 1,
-        clientId: 1, // Mock client
-        professionalId: parseInt(id),
-        date: formData.date,
-        description: formData.description,
-        status: 'pendente'
-      };
-      mockServices.push(newService);
-      navigate('/confirmation');
+      try {
+        const response = await fetch('http://localhost:3001/api/services', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            clientId: user.id,
+            professionalId: professional.userId, // agora vem do banco
+            serviceDate: formData.date,
+            description: formData.description
+          }),
+        });
+
+        const data = await response.json();
+        if (!response.ok) throw new Error(data.error || 'Erro ao agendar serviço');
+        navigate('/confirmation');
+      } catch (error) {
+        console.error(error);
+        alert(error.message);
+      }
     }
   };
 
-  const professional = mockProfessionals.find(p => p.id === parseInt(id));
+  if (!professional) {
+    return (
+      <div className="loading-screen">
+        <div className="loading-spinner"></div>
+        <div className="loading-text">Carregando profissional...</div>
+      </div>
+    );
+  }
 
   return (
     <div className="booking">
       <div className="hero">
         <p className="eyebrow">Contratação</p>
-        <h1>Contratar {professional?.name}</h1>
+        <h1>Contratar {professional.name}</h1>
         <p>Agende seu serviço com este profissional</p>
         <div className="hero-actions">
           <button className="primary-btn" onClick={() => navigate('/client-dashboard')}>

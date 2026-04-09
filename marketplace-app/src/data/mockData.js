@@ -6,7 +6,7 @@ export const mockUsers = [
     name: 'João Silva',
     photo: 'https://api.dicebear.com/9.x/thumbs/svg?seed=João',
     email: 'joao@gmail.com',
-    password: '123456',
+    password: '1611@sampaioGGG',
     type: 'cliente'
   },
   {
@@ -14,7 +14,7 @@ export const mockUsers = [
     name: 'Maria Santos',
     photo: 'https://api.dicebear.com/9.x/thumbs/svg?seed=Maria',
     email: 'maria@gmail.com',
-    password: '123456',
+    password: '1611@sampaioGGG',
     type: 'profissional'
   }
 ];
@@ -54,6 +54,8 @@ export const mockProfessionals = [
     reviews: 83
   }
 ];
+
+// export const mockProfessionals = [];
 
 export const mockServices = [
   {
