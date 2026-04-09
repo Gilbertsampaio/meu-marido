@@ -1,4 +1,4 @@
-﻿import React, { useContext, useMemo, useEffect } from 'react';
+﻿import React, { useContext, useMemo, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../App';
 import { mockProfessionals } from '../data/mockData';
@@ -16,6 +16,16 @@ const getInitials = (name) => {
 const Home = () => {
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
+  const [isTop, setIsTop] = useState(true);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsTop(window.scrollY === 0);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   useEffect(() => {
     if (user) {
@@ -90,6 +100,17 @@ const Home = () => {
             Criar conta →
           </button>
         </div>
+
+        {isTop && (
+          <div
+            className="scroll-indicator"
+            onClick={() =>
+              window.scrollTo({ top: window.innerHeight, behavior: "smooth" })
+            }
+          >
+            ↓
+          </div>
+        )}
       </main>
 
       <section className="featured-section">
