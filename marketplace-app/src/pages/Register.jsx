@@ -120,6 +120,7 @@ const Register = () => {
               value={formData.email}
               onChange={handleChange}
               className={errors.email ? 'error' : ''}
+              autoComplete="current-email"
             />
             {errors.email && <span className="error-text">{errors.email}</span>}
           </div>
@@ -133,6 +134,7 @@ const Register = () => {
               value={formData.password}
               onChange={handleChange}
               className={errors.password ? 'error' : ''}
+              autoComplete="current-password"
             />
             {errors.password && <span className="error-text">{errors.password}</span>}
           </div>
@@ -146,6 +148,7 @@ const Register = () => {
               value={formData.confirmPassword}
               onChange={handleChange}
               className={errors.confirmPassword ? 'error' : ''}
+              autoComplete="current-password"
             />
             {errors.confirmPassword && <span className="error-text">{errors.confirmPassword}</span>}
           </div>

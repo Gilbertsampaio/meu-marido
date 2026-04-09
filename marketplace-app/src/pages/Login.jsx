@@ -89,6 +89,7 @@ const Login = () => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               className={errors.email ? 'error' : ''}
+              autoComplete="current-email"
             />
             {errors.email && <span className="error-text">{errors.email}</span>}
           </div>
@@ -101,6 +102,7 @@ const Login = () => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               className={errors.password ? 'error' : ''}
+              autoComplete="current-password"
             />
             {errors.password && <span className="error-text">{errors.password}</span>}
           </div>

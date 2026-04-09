@@ -116,8 +116,9 @@ const Home = () => {
 
               <div className="card-footer">
                 <strong>R$ {prof.averagePrice}</strong>
-                {/* <button onClick={() => handleHire(prof.id)} className="hire-btn">Contratar</button> */}
-                <Link to={handleHire(prof.id)} className="hire-btn">Contratar</Link>
+                <button onClick={() => handleHire(prof.id)} className="hire-btn">
+                  Contratar
+                </button>
               </div>
             </div>
           ))}
