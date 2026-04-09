@@ -260,6 +260,7 @@
   text-align: center;
   animation: bounce 1.5s infinite;
   opacity: 0.8;
+  cursor: pointer;
 }
 
 @keyframes bounce {
