@@ -213,7 +213,7 @@
   color: #f8fafc;
   border: none;
   padding: 0.9rem 1.5rem;
-  border-radius: 16px;
+  border-radius: 999px;
   cursor: pointer;
   transition: transform 0.2s, box-shadow 0.2s;
   text-decoration: none;

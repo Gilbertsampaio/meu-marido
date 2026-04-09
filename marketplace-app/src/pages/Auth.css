@@ -121,7 +121,7 @@
 .form-group select {
   width: 100%;
   padding: 0.95rem 1rem;
-  border-radius: 16px;
+  border-radius: 999px;
   border: 1px solid rgba(255, 255, 255, 0.18);
   background: rgba(255, 255, 255, 0.08);
   color: #f8fafc;
@@ -141,6 +141,7 @@
 .form-group textarea {
   min-height: 120px;
   resize: vertical;
+  border-radius: 25px;
 }
 
 .form-group input.error,
@@ -168,11 +169,12 @@
   background: linear-gradient(135deg, #818cf8 0%, #a855f7 100%);
   color: white;
   border: none;
-  border-radius: 18px;
+  border-radius: 999px;
   font-size: 1rem;
   font-weight: 700;
   cursor: pointer;
   transition: transform 0.2s, box-shadow 0.2s;
+  height: 50px;
 }
 
 .auth-btn:hover {
