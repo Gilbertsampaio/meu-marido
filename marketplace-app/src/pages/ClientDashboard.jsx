@@ -1,6 +1,7 @@
-﻿import React, { useState } from 'react';
+﻿import React, { useContext, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { mockProfessionals } from '../data/mockData';
+import { AuthContext } from '../App';
 import './Dashboard.css';
 
 const getInitials = (name) => {
@@ -24,6 +25,7 @@ const renderStars = (rating) => {
 const ClientDashboard = () => {
     const [filter, setFilter] = useState({ service: '', price: '', rating: '' });
     const navigate = useNavigate();
+    const { user } = useContext(AuthContext);
 
     const filteredProfessionals = mockProfessionals.filter(prof => {
         return (
@@ -42,8 +44,9 @@ const ClientDashboard = () => {
                     <p>Área destinada aos clientes cadastrados.</p>
 
                     <div className="hero-actions">
-                        <button className="primary-btn" onClick={() => navigate('/profile')}>
-                            Perfil
+                        <button className="primary-btn perfil-btn" onClick={() => navigate('/profile')}>
+                            <img className="initials" src={user?.photo} alt={user?.name} />
+                            <span>Perfil</span>
                         </button>
                     </div>
                 </div>

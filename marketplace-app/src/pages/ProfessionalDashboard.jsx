@@ -1,11 +1,13 @@
-﻿import React, { useState } from 'react';
+﻿import React, { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { mockServices } from '../data/mockData';
+import { AuthContext } from '../App';
 import './Dashboard.css';
 
 const ProfessionalDashboard = () => {
   const [services, setServices] = useState(mockServices);
   const navigate = useNavigate();
+  const { user } = useContext(AuthContext);
 
   const handleAccept = (id) => {
     setServices(services.map(s => s.id === id ? { ...s, status: 'aceito' } : s));
@@ -24,8 +26,9 @@ const ProfessionalDashboard = () => {
           <p>Gerencie suas solicitações e serviços.</p>
 
           <div className="hero-actions">
-            <button className="primary-btn" onClick={() => navigate('/profile')}>
-              Perfil
+            <button className="primary-btn perfil-btn" onClick={() => navigate('/profile')}>
+              <img className="initials" src={user?.photo} alt={user?.name} />
+              <span>Perfil</span>
             </button>
           </div>
         </div>

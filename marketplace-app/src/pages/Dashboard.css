@@ -46,6 +46,20 @@
   gap: 1rem;
   flex-wrap: wrap;
   margin-top: 2rem;
+
+  span {
+    margin-left: 45px;
+  }
+
+  button.perfil-btn {
+    justify-content: flex-start;
+    padding: 5px !important;
+
+    img {
+      width: 40px;
+      height: 40px;
+    }
+  }
 }
 
 .dashboard .primary-btn,
@@ -305,6 +319,20 @@
 
   .dashboard .hero-actions {
     flex-direction: column;
+
+    span {
+      margin-left: 95px;
+    }
+
+    button.perfil-btn {
+      justify-content: flex-start;
+      padding: 5px;
+
+      img {
+        width: 40px;
+        height: 40px;
+      }
+    }
   }
 
   .dashboard .primary-btn,
